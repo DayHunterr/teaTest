@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ 'title'|trans }}{% endblock title %}</title>
+
+    {% block meta %}
+    {% endblock meta %}
+
+    {% block fonts %}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+              rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400..700;1,300..700&fam ily=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+              rel="stylesheet">
+    {% endblock fonts %}
+
+    {% block stylesheets %}{% endblock stylesheets %}
+    {% block javascripts %}{% endblock javascripts %}
+
+    {% block mob_menu %}
+        <header class="header">
+            <div class="menu--close"></div>
+            <div class="container">
+                <div class="header__inner">
+                    <a class="logo" href="#">
+                        <img src="images/logo.svg" alt="TealuxE">
+                    </a>
+                    <nav class="menu">
+                        <button class="menu__btn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <ul class="menu__list">
+                            <li class="menu__close">
+                                <button class="menu__close-btn">
+                                    <img src="images/close.svg" alt="Close cross">
+                                </button>
+                            </li>
+                            <li class="menu__item">
+                                <a class="menu__link" href="#">Black</a>
+                            </li>
+                            <li class="menu__item">
+                                <a class="menu__link" href="#">Green</a>
+                            </li>
+                            <li class="menu__item">
+                                <a class="menu__link" href="#">White</a>
+                            </li>
+                            <li class="menu__item">
+                                <a class="menu__link" href="#">Oolong</a>
+                            </li>
+                            <li class="menu__item">
+                                <a class="menu__link" href="#">Pu-erh</a>
+                            </li>
+                            <li class="mobile-nav">
+                                <ul class="mobile-menu">
+                                    <li class="mobile-menu__item">
+                                        <a class="mobile__menu-link" href="#">Contact Us</a>
+                                    </li>
+                                    <li class="mobile-menu__item">
+                                        <a class="mobile__menu-link" href="#">Our Blog</a>
+                                    </li>
+                                    <li class="mobile-menu__item">
+                                        <a class="mobile__menu-link" href="#">Shipping and Delivery</a>
+                                    </li>
+                                </ul>
+                                <ul class="mobile-actions">
+                                    <li class="mobile-actions__item">
+                                        <a class="user-actions__link" href="#">
+                                            <img src="images/icon-cart.svg" alt="Cart">
+                                        </a>
+                                    </li>
+                                    <li class="mobile-actions__item">
+                                        <a class="user-actions__link" href="#">
+                                            <img src="images/icon-user.png" alt="User Profile">
+                                        </a>
+                                    </li>
+                                    <li class="mobile-actions__item">
+                                        <a class="user-actions__link" href="#">
+                                            <img src="images/icon-search.svg" alt="Search">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <ul class="user-actions">
+                        <li class="user-actions__item">
+                            <a class="user-actions__link" href="#">
+                                <img src="images/icon-cart.svg" alt="Cart">
+                            </a>
+                        </li>
+                        <li class="user-actions__item">
+                            <a class="user-actions__link" href="#">
+                                <img src="images/icon-user.png" alt="User Profile">
+                            </a>
+                        </li>
+                        <li class="user-actions__item user-actions__item-search">
+                            <a class="user-actions__link" href="#">
+                                <img src="images/icon-search.svg" alt="Search">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+    {% endblock mob_menu %}
+
+    {% block ld_json %}
+    {% endblock ld_json %}
+
+{% block body %}{% endblock body %}
