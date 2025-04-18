@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ locale }}">
+<html lang="{{ 'locale' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,67 +21,67 @@
     {% block javascripts %}{% endblock javascripts %}
 
     {% block mob_menu %}
-        <header class="header">
-            <div class="menu--close"></div>
+        <header class="header" data-controller="menu">
+            <div class="menu--close" data-menu-target="shadow"></div>
             <div class="container">
                 <div class="header__inner">
                     <a class="logo" href="#">
-                        <img src="images/logo.svg" alt="TealuxE">
+                        <img src="{{ asset('build/images/logo.svg') }}" alt="TealuxE">
                     </a>
                     <nav class="menu">
-                        <button class="menu__btn">
+                        <button class="menu__btn" data-menu-target="btn">
                             <span></span>
                             <span></span>
                             <span></span>
                             <span></span>
                         </button>
-                        <ul class="menu__list">
+                        <ul class="menu__list" data-menu-target="list">
                             <li class="menu__close">
-                                <button class="menu__close-btn">
-                                    <img src="images/close.svg" alt="Close cross">
+                                <button class="menu__close-btn" data-menu-target="close">
+                                    <img src="{{ asset('build/images/close.svg') }}" alt="Close cross">
                                 </button>
                             </li>
                             <li class="menu__item">
-                                <a class="menu__link" href="#">Black</a>
+                                <a class="menu__link" href="#">{{ 'black'|trans }}</a>
                             </li>
                             <li class="menu__item">
-                                <a class="menu__link" href="#">Green</a>
+                                <a class="menu__link" href="#">{{ 'green'|trans }}</a>
                             </li>
                             <li class="menu__item">
-                                <a class="menu__link" href="#">White</a>
+                                <a class="menu__link" href="#">{{ 'white'|trans }}</a>
                             </li>
                             <li class="menu__item">
-                                <a class="menu__link" href="#">Oolong</a>
+                                <a class="menu__link" href="#">{{ 'oolong'|trans }}</a>
                             </li>
                             <li class="menu__item">
-                                <a class="menu__link" href="#">Pu-erh</a>
+                                <a class="menu__link" href="#">{{ 'pu-erh'|trans }}</a>
                             </li>
                             <li class="mobile-nav">
                                 <ul class="mobile-menu">
                                     <li class="mobile-menu__item">
-                                        <a class="mobile__menu-link" href="#">Contact Us</a>
+                                        <a class="mobile__menu-link" href="#">{{ 'contact_us'|trans }}s</a>
                                     </li>
                                     <li class="mobile-menu__item">
-                                        <a class="mobile__menu-link" href="#">Our Blog</a>
+                                        <a class="mobile__menu-link" href="#">{{ 'our_blog'|trans }}</a>
                                     </li>
                                     <li class="mobile-menu__item">
-                                        <a class="mobile__menu-link" href="#">Shipping and Delivery</a>
+                                        <a class="mobile__menu-link" href="#">{{ 'shipping_and_delivery'|trans }}</a>
                                     </li>
                                 </ul>
                                 <ul class="mobile-actions">
                                     <li class="mobile-actions__item">
                                         <a class="user-actions__link" href="#">
-                                            <img src="images/icon-cart.svg" alt="Cart">
+                                            <img src="{{ asset('build/images/icon-cart.svg') }}" alt="Cart">
                                         </a>
                                     </li>
                                     <li class="mobile-actions__item">
                                         <a class="user-actions__link" href="#">
-                                            <img src="images/icon-user.png" alt="User Profile">
+                                            <img src="{{ asset('build/images/icon-user.png') }}" alt="User Profile">
                                         </a>
                                     </li>
                                     <li class="mobile-actions__item">
                                         <a class="user-actions__link" href="#">
-                                            <img src="images/icon-search.svg" alt="Search">
+                                            <img src="{{ asset('build/images/icon-search.svg') }}" alt="Search">
                                         </a>
                                     </li>
                                 </ul>
@@ -91,17 +91,17 @@
                     <ul class="user-actions">
                         <li class="user-actions__item">
                             <a class="user-actions__link" href="#">
-                                <img src="images/icon-cart.svg" alt="Cart">
+                                <img src="{{ asset('build/images/icon-cart.svg') }}" alt="Cart">
                             </a>
                         </li>
                         <li class="user-actions__item">
                             <a class="user-actions__link" href="#">
-                                <img src="images/icon-user.png" alt="User Profile">
+                                <img src="{{ asset('build/images/icon-user.png') }}" alt="User Profile">
                             </a>
                         </li>
                         <li class="user-actions__item user-actions__item-search">
                             <a class="user-actions__link" href="#">
-                                <img src="images/icon-search.svg" alt="Search">
+                                <img src="{{ asset('build/images/icon-search.svg') }}" alt="Search">
                             </a>
                         </li>
                     </ul>
