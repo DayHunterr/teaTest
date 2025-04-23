@@ -1,0 +1,34 @@
+<section class="mailing-list">
+    <div class="container">
+        <h2 class="title mailing-list__title">{{ 'mailing.title'|trans }}</h2>
+        <div class="mailing-list__inner">
+            <p class="mailing-list__text">{{ 'mailing.text'|trans }}</p>
+
+            {{ form_start(form, {
+                action: path('mailing_subscribe'),
+                attr: {
+                    class: 'mailing-list__form',
+                    'data-controller': 'mailing',
+                    'data-action': 'submit->mailing#submit',
+                    'data-mailing-target': 'form'
+                }
+            }) }}
+
+            {{ form_row(form.email, {'attr': {'class': 'mailing-list__email'}}) }}
+
+
+            <button type="submit" class="mailing-list__btn">
+                {{ 'mailing.button'|trans }}
+            </button>
+
+            <label class="mailing-list__label">
+                {{ form_widget(form.agree, {'attr': {'class': 'checkbox'}}) }}
+                <span class="checkbox-style"></span>
+                <p class="checkbox__text">{{ 'mailing.privacy'|trans }}</p>
+            </label>
+
+            {{ form_end(form, {'render_rest': false}) }}
+            <div data-mailing-target="message" class="mailing-list__message"></div>
+        </div>
+    </div>
+</section>

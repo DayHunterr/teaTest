@@ -59,6 +59,8 @@ prioritize.3.text: "No bots, no automated replies"
 prioritize.4.title: "Fast shipping"
 prioritize.4.text: "Save, Convenient, Reliable"
 
+subscribe.placeholder: "email@gmail.com"
+
 footer.products.title: "Products"
 footer.products.black: "Black tea"
 footer.products.green: "Green tea"
