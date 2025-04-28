@@ -1,0 +1,5 @@
+"not_blank": "This field must not be left blank"
+"not_agree": "You must agree with these rules"
+"invalid_email": "Please enter a valid email address"
+"must_be_accepted": "You must accept the terms and conditions"
+"max_length": "You email is too long"

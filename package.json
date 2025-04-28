@@ -20,6 +20,9 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@symfony/stimulus-bridge": "^3.2.3"
+        "@symfony/stimulus-bridge": "^3.2.3",
+        "jquery": "^3.7.1",
+        "sweetalert2": "^11.19.1",
+        "yup": "^1.6.1"
     }
 }
