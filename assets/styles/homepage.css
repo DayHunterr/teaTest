@@ -345,6 +345,11 @@ body {
 .checkbox__text {
     font-size: 13px;
     padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+.mailing-list__message{
+    margin: 0 auto;
 }
 
 .mailing-list__label {

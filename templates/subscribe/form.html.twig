@@ -14,21 +14,17 @@
                 }
             }) }}
 
-            {{ form_row(form.email, {'attr': {'class': 'mailing-list__email'}}) }}
+            {{ form_row(form.email) }}
 
-
-            <button type="submit" class="mailing-list__btn">
-                {{ 'mailing.button'|trans }}
-            </button>
+            {{ form_widget(form.submit) }}
 
             <label class="mailing-list__label">
                 {{ form_widget(form.agree, {'attr': {'class': 'checkbox'}}) }}
                 <span class="checkbox-style"></span>
                 <p class="checkbox__text">{{ 'mailing.privacy'|trans }}</p>
             </label>
-
-            {{ form_end(form, {'render_rest': false}) }}
             <div data-mailing-target="message" class="mailing-list__message"></div>
+            {{ form_end(form, {'render_rest': false}) }}
         </div>
     </div>
 </section>

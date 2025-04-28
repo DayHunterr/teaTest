@@ -1,5 +1,5 @@
 <?php
-// src/Controller/MailingController.php
+
 namespace App\Controller;
 
 use App\Entity\Company;

@@ -11,7 +11,9 @@ Encore
     .addEntry('homepage', [
         './assets/styles/reset.css',
         './assets/styles/homepage.css',
-        './assets/bootstrap.js'
+        './assets/styles/loader.css',
+        './assets/bootstrap.js',
+
     ])
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
