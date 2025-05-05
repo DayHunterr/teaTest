@@ -350,6 +350,7 @@ body {
 
 .mailing-list__message{
     margin: 0 auto;
+    text-align: center;
 }
 
 .mailing-list__label {
