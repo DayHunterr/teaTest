@@ -280,6 +280,10 @@ body {
     width: 152px;
 }
 
+.main-blog__item-empty{
+    margin: 0 auto;
+}
+
 .mailing-list {
     padding: 100px 0;
     background-color: #F7F2EA;

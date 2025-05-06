@@ -126,51 +126,9 @@
                         </div>
                     </li>
                 </ul>
-                <a class="main-blog__link" href="#">{{ 'blog.view_all'|trans }}</a>
+                <a class="main-blog__link" href="{{ path('articles') }}">{{ 'blog.view_all'|trans }}</a>
             </div>
         </section>
-{#        <section class="mailing-list">#}
-{#            <div class="container">#}
-{#                <h2 class="title mailing-list__title">{{ 'mailing.title'|trans }}</h2>#}
-{#                <div class="mailing-list__inner">#}
-{#                    <p class="mailing-list__text">{{ 'mailing.text'|trans }}</p>#}
-{#                    <form data-controller="mailing"#}
-{#                          data-action="submit->mailing#submit"#}
-{#                          data-mailing-target="form"#}
-{#                          class="mailing-list__form"#}
-{#                          action="{{ path('mailing_subscribe')}}"#}
-{#                          method="post">#}
-{#                        <input class="mailing-list__email" type="email" placeholder="{{ 'mailing.placeholder'|trans }}">#}
-{#                        <button class="mailing-list__btn" type="submit">{{ 'mailing.button'|trans }}</button>#}
-{#                        <label class="mailing-list__label">#}
-{#                            <input class="checkbox" type="checkbox">#}
-{#                            <span class="checkbox-style"></span>#}
-{#                            <p class="checkbox__text">{{ 'mailing.privacy'|trans }}</p>#}
-{#                        </label>#}
-{#                {{ form_start(form, { 'attr': { 'class': 'mailing-list__form' } }) }}#}
-{#                <div class="mailing-list__email-wrapper">#}
-{#                    {{ form_widget(form.email, {#}
-{#                        'attr': {#}
-{#                            'class': 'mailing-list__email',#}
-{#                            'placeholder': 'mailing.placeholder'|trans#}
-{#                        }#}
-{#                    }) }}#}
-{#                </div>#}
-{#                <button class="mailing-list__btn" type="submit">#}
-{#                    {{ 'mailing.button'|trans }}#}
-{#                </button>#}
-{#                <label class="mailing-list__label">#}
-{#                    {{ form_widget(form.agree, { 'attr': { 'class': 'checkbox' } }) }}#}
-{#                    <span class="checkbox-style"></span>#}
-{#                    <p class="checkbox__text">{{ 'mailing.privacy'|trans }}</p>#}
-{#                </label>#}
-
-{#                {{ form_end(form) }}#}
-{#                    </form>#}
-{#                    <div data-mailing-target="message" id="mailing-message"></div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </section>#}
 
         {{ render(controller('App\\Controller\\MailingController::renderQuestionForm')) }}
 

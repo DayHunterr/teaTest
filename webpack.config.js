@@ -16,6 +16,15 @@ Encore
 
     ])
 
+    .addEntry('articles', [
+        './assets/styles/reset.css',
+        './assets/styles/homepage.css',
+        './assets/styles/articles.css',
+        './assets/bootstrap.js',
+    ])
+
+
+
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
     .splitEntryChunks()

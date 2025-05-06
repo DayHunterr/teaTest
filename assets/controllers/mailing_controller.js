@@ -1,4 +1,3 @@
-// assets/controllers/mailing_controller.js
 import { Controller } from '@hotwired/stimulus'
 import { FullScreenLoader } from "../component/loader/FullScreenLoader";
 import ValidationHandler from '../validation/ValidationHandler';
@@ -21,8 +20,6 @@ export default class extends Controller {
         const errors = validator.validate(validationData);
 
         if (Object.keys(errors).length > 0) {
-            // Если есть ошибки валидации, выводим их в message
-            // const errorMessages = Object.values(errors).join('<br>');
             const errorMessages = Object.values(errors)[0];
             this.messageTarget.innerHTML = `<div class="error">${errorMessages}</div>`;
             FullScreenLoader.destroy();
@@ -58,6 +55,4 @@ export default class extends Controller {
                 }, 1000);
             });
     }
-
-
 }

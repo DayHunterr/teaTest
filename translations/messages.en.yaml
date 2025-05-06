@@ -42,6 +42,7 @@ blog.post3.author: "by Casper the Friendly Ghost"
 blog.post4.title: "Tea and Caffeine: Effects on the Brain and Behavior"
 blog.post4.author: "by Author Authorus"
 blog.view_all: "View all"
+blog.post.empty: "Currently here no posts"
 
 mailing.title: "Want to know more?"
 mailing.text: "Join our mailing list and stay up-to-date with the latest news, promotions, and exclusive offers from our tea store. Be the first to know about new tea arrivals, seasonal blends, and special discounts. Don't miss out on the tea-rrific perks - sign up today!"

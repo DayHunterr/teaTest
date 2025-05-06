@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('articles') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('articles') }}
+{% endblock %}
+
+{% block body %}
+    <section class="main-blog">
+        <div class="container">
+            <h2 class="title main-blog__title">{{ 'blog.title'|trans }}</h2>
+            <ul class="main-blog__list">
+                {% for article in pagination %}
+                    <li class="main-blog__item">
+                        <img class="main-blog__item-img" src="{{ asset('build/images/tea-on-table.png') }}" alt="Article Image">
+                        <div class="main-blog__item-content">
+                            <h3 class="main-blog__item-title">{{ article.title }}</h3>
+                            <a class="main-blog__item-author" href="#">{{ article.author }}</a>
+                            <a class="main-blog__item-link" href="#">{{ 'blog.post.read'|trans }}</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="main-blog__item-empty">{{'blog.post.empty'|trans}}</li>
+                {% endfor %}
+            </ul>
+            <div class="pagination">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+    </section>
+{% endblock body %}
+
+{% block ld_json %}
+{% endblock ld_json %}
