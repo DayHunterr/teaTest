@@ -2,6 +2,7 @@
 
 namespace App\Admin;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -15,7 +16,10 @@ final class ArticleAdmin extends AbstractAdmin
     {
         $form->add('title', TextType::class);
         $form->add('author', TextType::class);
-        $form->add('text', TextType::class);
+        $form->add('text', CKEditorType::class, [
+            'label' => 'Content',
+            'config_name' => 'default'
+        ]);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagrid): void

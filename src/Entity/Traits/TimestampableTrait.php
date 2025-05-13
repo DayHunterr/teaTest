@@ -3,42 +3,56 @@
 namespace App\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
+
 trait TimestampableTrait
 {
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
-    private \DateTimeImmutable $created_at;
+    private \DateTimeInterface $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private \DateTime $updated_at;
+    private \DateTimeInterface $updatedAt;
 
-    public function getCreatedAt(): \DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function getUpdatedAt(): \DateTime
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        return $this->updated_at;
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function setCreatedAtValue(): void
+    public function onPrePersist(): void
     {
-        $this->created_at = new \DateTimeImmutable();
-        $this->updated_at = new \DateTime();
+        $now = new \DateTimeImmutable();
+        $this->createdAt = $now;
+        $this->updatedAt = $now;
     }
 
     /**
      * @ORM\PreUpdate
      */
-    public function setUpdatedAtValue(): void
+    public function onPreUpdate(): void
     {
-        $this->updated_at = new \DateTime();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 }

@@ -3,6 +3,21 @@ sonata_admin:
     dashboard:
         blocks:
             - { type: sonata.admin.block.admin_list, position: left }
+    security:
+        handler: sonata.admin.security.handler.role
+        role_admin: ROLE_ADMIN
+        role_super_admin: ROLE_SUPER_ADMIN
+
+    options:
+        form_type: standard
+    templates:
+        form_theme: ['@SonataAdmin/Form/form_admin_fields.html.twig']
+
+sonata_user:
+    resetting:
+        email:
+            address: 'no-reply@example.com'
+            sender_name: 'No Reply'
 
 sonata_block:
     blocks:

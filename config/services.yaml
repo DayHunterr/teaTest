@@ -6,7 +6,8 @@
 parameters:
     locale: '%env(string:LOCALE)%'
 services:
-    # default configuration for services in *this* file
+
+        # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
@@ -23,7 +24,13 @@ services:
     admin.article:
         class: App\Admin\ArticleAdmin
         tags:
-            - { name: sonata.admin, model_class: App\Entity\Article, manager_type: orm, label: Article, group: Posts, }
+            - { name: sonata.admin, model_class: App\Entity\Article, manager_type: orm, label: Article, group: Posts, icon: '<i class="fa fa-address-card-o"></i>'}
+
+    sonata.user.admin.user:
+        class: App\Admin\UserAdmin
+        arguments: [ ~, App\Entity\SonataUserUser, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Users, group: Users, icon: '<i class="fa fa-user"></i>' }
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

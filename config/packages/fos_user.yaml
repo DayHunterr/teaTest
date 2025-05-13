@@ -1,0 +1,10 @@
+fos_user:
+  db_driver: orm
+  firewall_name: main
+  user_class: App\Entity\SonataUserUser
+  service:
+    user_manager: fos_user.user_manager.default
+    mailer: fos_user.mailer.noop
+  from_email:
+    address: 'test@example.com'
+    sender_name: 'Test App'
