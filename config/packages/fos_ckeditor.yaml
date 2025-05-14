@@ -1,16 +1,9 @@
-# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
-
 twig:
     form_themes:
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+
 fos_ck_editor:
     default_config: default
-    input_sync: true
     configs:
         default:
-            toolbar: full
-            filebrowserUploadUrl: /ckeditor/upload
-            filebrowserBrowseUrl: /ckeditor/browse
-    base_path: "/bundles/fosckeditor"
-    js_path:  "/bundles/fosckeditor/ckeditor.js"
-#    licenseKey: 'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NDgzOTAzOTksImp0aSI6ImU0ZDc4MWVkLTdlNDItNGRjNi04MmE2LWNiNTllYTg1YzRjZiIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6ImYyNzczM2Q5In0.ynHKbUp8P4sU6wbJKdw7eGOVkvFt1yBN6-Jkk3osCh2L1GEGitH4EplnKKFZZunEnJzgCKcPk1yDEAYMtXdwgA'
+            filebrowserUploadMethod: 'form'
