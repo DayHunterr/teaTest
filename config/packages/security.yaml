@@ -59,7 +59,8 @@ security:
         - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/ckeditor/upload, roles: [ PUBLIC_ADMIN, ROLE_SUPER_ADMIN,ROLE_ADMIN_ALL ] }
+        - { path: ^/admin/ckeditor/upload, roles: ROLE_ADMIN }
+#        - { path: ^/ckeditor/upload, roles: ROLE_ADMIN }
     # Secured part of the site
     # This config requires being logged for the whole site and having the admin role for the admin part.
     # Change these rules to adapt them to your needs

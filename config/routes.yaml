@@ -8,3 +8,7 @@ sonata_user_admin_security:
 sonata_user_admin_resetting:
   resource: '@SonataUserBundle/Resources/config/routing/admin_resetting.xml'
   prefix: /admin/resetting
+
+ckeditor_upload:
+  path: /admin/ckeditor/upload
+  controller: App\Controller\CKEditorUploadController::upload

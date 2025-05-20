@@ -6,4 +6,14 @@ fos_ck_editor:
     default_config: default
     configs:
         default:
+            toolbar: full
+            filebrowserUploadUrl: /admin/ckeditor/upload
             filebrowserUploadMethod: 'form'
+            extraPlugins: "uploadimage"
+            height: 400
+        drag_and_drop:
+            toolbar: full
+            filebrowserUploadUrl: "/admin/ckeditor/upload?responseType=json"
+            filebrowserUploadMethod: 'form'
+            extraPlugins: "uploadimage"
+            height: 400
