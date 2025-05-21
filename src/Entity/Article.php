@@ -37,6 +37,48 @@ class Article
      */
     private $text;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $smallImage;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $largeImage;
+
+    /**
+     * @return mixed
+     */
+    public function getSmallImage()
+    {
+        return $this->smallImage;
+    }
+
+    /**
+     * @param mixed $smallImage
+     */
+    public function setSmallImage($smallImage): void
+    {
+        $this->smallImage = $smallImage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLargeImage()
+    {
+        return $this->largeImage;
+    }
+
+    /**
+     * @param mixed $largeImage
+     */
+    public function setLargeImage($largeImage): void
+    {
+        $this->largeImage = $largeImage;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

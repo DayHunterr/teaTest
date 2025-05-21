@@ -8,7 +8,9 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final class ArticleAdmin extends AbstractAdmin
@@ -33,15 +35,23 @@ final class ArticleAdmin extends AbstractAdmin
 //        }
 
 
-
         $form->add('title', TextType::class);
         $form->add('author', TextType::class);
         $form->add('text', CKEditorType::class, [
             'label' => 'Content',
             'config_name' => 'default'
         ]);
+        $form->add('smallImageFile', FileType::class, [
+            'label' => 'Small image (preview)',
+            'required' => false,
+            'mapped' => false,
+        ]);
 
-
+        $form->add('largeImageFile', FileType::class, [
+            'label' => 'Large image (inside article)',
+            'required' => false,
+            'mapped' => false,
+        ]);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagrid): void
@@ -61,5 +71,36 @@ final class ArticleAdmin extends AbstractAdmin
         $show->add('title');
         $show->add('author');
         $show->add('text');
+    }
+
+    public function prePersist($article): void
+    {
+        $this->handleImageUpload($article);
+    }
+
+    public function preUpdate($article): void
+    {
+        $this->handleImageUpload($article);
+    }
+
+    private function handleImageUpload($article): void
+    {
+        $projectDir = dirname(__DIR__, 2);
+        $form = $this->getForm();
+
+        $smallImageFile = $form->get('smallImageFile')->getData();
+        $largeImageFile = $form->get('largeImageFile')->getData();
+
+        if ($smallImageFile instanceof UploadedFile) {
+            $filename = uniqid() . '.' . $smallImageFile->guessExtension();
+            $smallImageFile->move($projectDir . '/public/uploads/articles', $filename);
+            $article->setSmallImage('/uploads/articles/' . $filename);
+        }
+
+        if ($largeImageFile instanceof UploadedFile) {
+            $filename = uniqid() . '.' . $largeImageFile->guessExtension();
+            $largeImageFile->move($projectDir . '/public/uploads/articles', $filename);
+            $article->setLargeImage('/uploads/articles/' . $filename);
+        }
     }
 }

@@ -17,6 +17,7 @@
         "friendsofsymfony/ckeditor-bundle": "^2.4",
         "friendsofsymfony/user-bundle": "^3.4",
         "knplabs/knp-paginator-bundle": "^5.9",
+        "sensio/framework-extra-bundle": "^6.2",
         "sonata-project/admin-bundle": "^4.22",
         "sonata-project/doctrine-orm-admin-bundle": "^4.9",
         "sonata-project/user-bundle": "^5.5",

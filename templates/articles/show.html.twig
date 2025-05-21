@@ -11,28 +11,18 @@
 {% block body %}
     <section class="main-blog">
         <div class="container">
-            <h2 class="title main-blog__title">{{ 'blog.title'|trans }}</h2>
+            <h2 class="title main-blog__title">{{ article.title }}</h2>
             <ul class="main-blog__list">
-                {% for article in pagination %}
                     <li class="main-blog__item">
                         <img class="main-blog__item-img" src="{{ asset('build/images/tea-on-table.png') }}" alt="Article Image">
                         <div class="main-blog__item-content">
-                            <h3 class="main-blog__item-title">
-                                <a href="{{ path('article', { id: article.id }) }}">
-                                    {{ article.title }}
-                                </a>
-                            </h3>
+                            <h3 class="main-blog__item-title">{{ article.title }}</h3>
                             <a class="main-blog__item-author" href="#">{{ article.author }}</a>
-                            <a class="main-blog__item-link" href="{{ path('article', { id: article.id }) }}">{{ 'blog.post.read'|trans }}</a>
+                            <p class="main-blog__item-author" href="#">{{ article.text | raw }}</p>
                         </div>
                     </li>
-                {% else %}
-                    <li class="main-blog__item-empty">{{'blog.post.empty'|trans}}</li>
-                {% endfor %}
+                <li><a href="{{ path('articles') }}">← Back to List</a></li>
             </ul>
-            <div class="pagination">
-                {{ knp_pagination_render(pagination) }}
-            </div>
         </div>
     </section>
 {% endblock body %}
