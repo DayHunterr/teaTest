@@ -9,7 +9,7 @@ fos_ck_editor:
             toolbar: full
             filebrowserUploadUrl: /admin/ckeditor/upload
             filebrowserUploadMethod: 'form'
-#            extraPlugins: "uploadimage"
+            extraPlugins: "uploadimage"
             removePlugins: exportpdf,uploadimage
             height: 400
         drag_and_drop:

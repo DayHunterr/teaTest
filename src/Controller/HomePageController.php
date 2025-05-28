@@ -21,7 +21,7 @@ class HomePageController extends AbstractController
     {
         $breadcrumbs->addItem('Home');
 
-        $latestArticles = $articleRepository->findBy([], ['id' => 'DESC'], 4);
+        $latestArticles = $articleRepository->findBy([], ['id' => 'ASC'], 4);
 
         return $this->render('home_page/index.html.twig', [
             'latestArticles' => $latestArticles,
