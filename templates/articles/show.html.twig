@@ -1,20 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('articles') }}
+    {{ encore_entry_link_tags('articles_show') }}
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('articles') }}
+    {{ encore_entry_script_tags('articles_show') }}
 {% endblock %}
 
 {% block body %}
     <section class="main-blog">
         <div class="container">
+            {% include 'partials/_breadcrumbs.html.twig' %}
             <h2 class="title main-blog__title">{{ article.title }}</h2>
+            {% set imageSrcLarge = article.largeImage ? asset(article.largeImage) : asset('build/images/placeholder.jpg') %}
+            <img class="main-blog__item-img-background" src="{{ imageSrcLarge }}" alt="Background image">
             <ul class="main-blog__list">
                     <li class="main-blog__item">
-                        <img class="main-blog__item-img" src="{{ asset('build/images/tea-on-table.png') }}" alt="Article Image">
+                        {% set imageSrcSmall = article.smallImage ? asset(article.smallImage) : asset('build/images/tea-on-table.png') %}
+                        <img class="main-blog__item-img" src="{{ imageSrcSmall }}" alt="Article Image">
                         <div class="main-blog__item-content">
                             <h3 class="main-blog__item-title">{{ article.title }}</h3>
                             <a class="main-blog__item-author" href="#">{{ article.author }}</a>

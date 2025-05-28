@@ -23,6 +23,13 @@ Encore
         './assets/bootstrap.js',
     ])
 
+    .addEntry('articles_show', [
+        './assets/styles/reset.css',
+        './assets/styles/homepage.css',
+        './assets/styles/articles_show.css',
+        './assets/bootstrap.js',
+    ])
+
 
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

@@ -93,38 +93,24 @@
             <div class="container">
                 <h2 class="title main-blog__title">{{ 'blog.title'|trans }}</h2>
                 <ul class="main-blog__list">
-                    <li class="main-blog__item">
-                        <img class="main-blog__item-img" src="{{ asset('build/images/tea-on-table.png') }}" alt="Tea On Table">
-                        <div class="main-blog__item-content">
-                            <h3 class="main-blog__item-title">{{ 'blog.post1.title'|trans }}</h3>
-                            <a class="main-blog__item-author" href="#">{{ 'blog.post1.author'|trans }}</a>
-                            <a class="main-blog__item-link" href="#">{{ 'blog.post.read'|trans }}</a>
-                        </div>
-                    </li>
-                    <li class="main-blog__item">
-                        <img class="main-blog__item-img" src="{{ asset('build/images/man-stay-back.png') }}" alt="Tea On Table">
-                        <div class="main-blog__item-content">
-                            <h3 class="main-blog__item-title">{{ 'blog.post2.title'|trans }}</h3>
-                            <a class="main-blog__item-author" href="#">{{ 'blog.post2.author'|trans }}</a>
-                            <a class="main-blog__item-link" href="#">{{ 'blog.post.read'|trans }}</a>
-                        </div>
-                    </li>
-                    <li class="main-blog__item">
-                        <img class="main-blog__item-img" src="{{ asset('build/images/tea-diploma.png') }}" alt="Tea On Table">
-                        <div class="main-blog__item-content">
-                            <h3 class="main-blog__item-title">{{ 'blog.post3.title'|trans }}</h3>
-                            <a class="main-blog__item-author" href="#">{{ 'blog.post3.author'|trans }}</a>
-                            <a class="main-blog__item-link" href="#">{{ 'blog.post.read'|trans }}</a>
-                        </div>
-                    </li>
-                    <li class="main-blog__item">
-                        <img class="main-blog__item-img" src="{{ asset('build/images/tea-set.png') }}" alt="Tea On Table">
-                        <div class="main-blog__item-content">
-                            <h3 class="main-blog__item-title">{{ 'blog.post4.title'|trans }}</h3>
-                            <a class="main-blog__item-author" href="#">{{ 'blog.post4.author'|trans }}</a>
-                            <a class="main-blog__item-link" href="#">{{ 'blog.post.read'|trans }}</a>
-                        </div>
-                    </li>
+                    {% for article in latestArticles %}
+                        <li class="main-blog__item">
+                            {% if article.smallImage %}
+                                <img class="main-blog__item-img" src="{{ asset(article.smallImage) }}" alt="{{ article.title }}">
+                            {% else %}
+                                <img class="main-blog__item-img" src="{{ asset('build/images/tea-on-table.png') }}" alt="Default image">
+                            {% endif %}
+                            <div class="main-blog__item-content">
+                                <h3 class="main-blog__item-title">
+                                    <a href="{{ path('article', { id: article.id }) }}">{{ article.title }}</a>
+                                </h3>
+                                <a class="main-blog__item-author" href="#">{{ article.author }}</a>
+                                <a class="main-blog__item-link" href="{{ path('article', { id: article.id }) }}">{{ 'blog.post.read'|trans }}</a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="main-blog__item-empty">{{ 'blog.post.empty'|trans }}</li>
+                    {% endfor %}
                 </ul>
                 <a class="main-blog__link" href="{{ path('articles') }}">{{ 'blog.view_all'|trans }}</a>
             </div>

@@ -11,11 +11,13 @@
 {% block body %}
     <section class="main-blog">
         <div class="container">
+            {% include 'partials/_breadcrumbs.html.twig' %}
             <h2 class="title main-blog__title">{{ 'blog.title'|trans }}</h2>
             <ul class="main-blog__list">
                 {% for article in pagination %}
                     <li class="main-blog__item">
-                        <img class="main-blog__item-img" src="{{ asset('build/images/tea-on-table.png') }}" alt="Article Image">
+                        {% set imageSrc = article.smallImage ? asset(article.smallImage) : asset('build/images/tea-on-table.png') %}
+                        <img class="main-blog__item-img" src="{{ imageSrc }}" alt="Article Image">
                         <div class="main-blog__item-content">
                             <h3 class="main-blog__item-title">
                                 <a href="{{ path('article', { id: article.id }) }}">

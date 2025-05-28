@@ -1,0 +1,13 @@
+<nav class="breadcrumbs" aria-label="breadcrumb">
+    <ul class="breadcrumbs__list">
+        {% for breadcrumb in breadcrumbs %}
+            <li class="breadcrumbs__item">
+                {% if breadcrumb.url is not null %}
+                    <a href="{{ breadcrumb.url }}" class="breadcrumbs__link">{{ breadcrumb.text }}</a>
+                {% else %}
+                    <span class="breadcrumbs__current">{{ breadcrumb.text }}</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

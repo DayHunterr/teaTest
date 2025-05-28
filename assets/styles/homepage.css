@@ -238,6 +238,11 @@ body {
     gap: 0 20px;
 }
 
+.main-blog__item-img {
+    max-width: 270px;
+    max-height: 200px;
+}
+
 .main-blog__item-content {
     display: flex;
     flex-direction: column;
@@ -529,6 +534,45 @@ body {
     display: flex;
     align-items: center;
     gap: 0 20px;
+}
+
+.breadcrumbs {
+    font-size: 0.875rem; /* Мелкий текст */
+    margin-bottom: 1rem;
+}
+
+.breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumbs__item {
+    display: flex;
+    align-items: center;
+    color: #666;
+}
+
+.breadcrumbs__item:not(:last-child)::after {
+    content: ">";
+    margin: 0 0.5em;
+    color: #aaa;
+}
+
+.breadcrumbs__link {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.breadcrumbs__link:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs__current {
+    color: #333;
+    font-weight: 500;
 }
 
 

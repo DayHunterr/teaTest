@@ -31,6 +31,10 @@
     font-size: 13px;
 }
 
+.main-blog__item-img-background{
+    max-width: 100%;
+}
+
 .main-blog__item-link {
     margin-top: auto;
     font-size: 13px;
