@@ -2,38 +2,24 @@
 
 namespace App\Admin;
 
+use App\Controller\Admin\ArticleAdminController;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollectionInterface;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 final class ArticleAdmin extends AbstractAdmin
 {
-
-//    private RequestStack $requestStack;
-//
-//    public function __construct(RequestStack $requestStack)
-//    {
-//        parent::__construct();
-//        $this->requestStack = $requestStack;
-//    }
+    protected $baseControllerName = ArticleAdminController::class;
 
     protected function configureFormFields(FormMapper $form): void
     {
-
-//        $request = $this->requestStack->getCurrentRequest();
-//        if ($request && $request->query->get('responseType') === 'json') {
-//            $configName = 'drag_and_drop';
-//        } else{
-//            $configName = 'default';
-//        }
-
 
         $form->add('title', TextType::class);
         $form->add('author', TextType::class);
@@ -56,18 +42,33 @@ final class ArticleAdmin extends AbstractAdmin
 
     protected function configureDatagridFilters(DatagridMapper $datagrid): void
     {
+        $datagrid->add('id');
         $datagrid->add('title');
         $datagrid->add('author');
     }
 
     protected function configureListFields(ListMapper $list): void
     {
+        $list->addIdentifier('id');
         $list->addIdentifier('title');
         $list->addIdentifier('author');
+
+        $list->add('_action', 'actions', [
+            'actions' => [
+                'edit' => [],
+                'delete' => [],
+                'show' => [],
+                'clone' => [
+                    'template' => 'articles/list__action_clone.html.twig',
+                ],
+            ],
+            'template' => '@SonataAdmin/CRUD/list__action.html.twig', // not necessary
+        ]);
     }
 
     protected function configureShowFields(ShowMapper $show): void
     {
+        $show->add('id');
         $show->add('title');
         $show->add('author');
         $show->add('text');
@@ -81,6 +82,11 @@ final class ArticleAdmin extends AbstractAdmin
     public function preUpdate($article): void
     {
         $this->handleImageUpload($article);
+    }
+
+    protected function configureRoutes(RouteCollectionInterface $collection): void
+    {
+        $collection->add('clone', $this->getRouterIdParameter() . '/clone');
     }
 
     private function handleImageUpload($article): void

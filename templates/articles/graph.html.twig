@@ -1,0 +1,32 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% block title %}Weekly stats of articles{% endblock %}
+
+{% block sonata_admin_content %}
+    <h1>Weekly stats of articles</h1>
+    <canvas id="postsChart" width="600" height="300"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('postsChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                datasets: [{
+                    label: 'Articles per day',
+                    data: {{ orderedData|json_encode|raw }},
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        precision: 0
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

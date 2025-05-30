@@ -1,7 +1,6 @@
 twig:
     form_themes:
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
-        - '@SonataAdmin/Form/form_admin_fields.html.twig'
 fos_ck_editor:
     default_config: default
     configs:
@@ -19,3 +18,4 @@ fos_ck_editor:
             extraPlugins: "uploadimage"
             removePlugins: exportpdf,uploadimage,clipboard
             height: 400
+        #You can add here endless count of configs

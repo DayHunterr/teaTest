@@ -7,6 +7,12 @@ parameters:
     locale: '%env(string:LOCALE)%'
 services:
 
+    App\Controller\Admin\ArticleAdminController:
+        autowire: true
+        autoconfigure: false
+        public: true
+        tags: [ 'controller.service_arguments' ]
+
         # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -24,8 +30,12 @@ services:
     admin.article:
         class: App\Admin\ArticleAdmin
         tags:
-            - { name: sonata.admin, model_class: App\Entity\Article, manager_type: orm, label: Article, group: Posts, icon: '<i class="fa fa-address-card-o"></i>'}
+            - { name: sonata.admin, model_class: App\Entity\Article,controller: App\Controller\Admin\ArticleAdminController, manager_type: orm, label: Article, group: Posts, icon: '<i class="fa fa-address-card-o"></i>'}
 
+    App\EventListener\AdminMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar }
+            -
     sonata.user.admin.user:
         class: App\Admin\UserAdmin
         arguments: [ ~, App\Entity\SonataUserUser, ~ ]
