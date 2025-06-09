@@ -366,6 +366,54 @@ body {
     margin-top: 16px;
 }
 
+.order-list {
+    padding: 150px 0;
+}
+
+.order-list__title {
+    margin: auto 0;
+    padding-bottom: 50px;
+    text-align: center;
+}
+
+.order-list__form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.order-list__field {
+    border: none;
+    border-bottom: 1px solid #B8B58B;
+    background-color: transparent;
+    padding: 8px 15px;
+    margin-bottom: 10px;
+    width: 438px;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #151618;
+    text-align: center;
+}
+
+
+.order-form {
+    max-width: 450px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.order-form .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.order-form button {
+    margin-top: 20px;
+}
+
+
 .checkbox {
     position: absolute;
     width: 1px;

@@ -35,7 +35,6 @@ services:
     App\EventListener\AdminMenuListener:
         tags:
             - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar }
-            -
     sonata.user.admin.user:
         class: App\Admin\UserAdmin
         arguments: [ ~, App\Entity\SonataUserUser, ~ ]

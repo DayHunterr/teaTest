@@ -1,0 +1,25 @@
+<section class="order-list">
+    <div class="order-form">
+        <h2 class="title order-list__title">Tea Order</h2>
+
+        {{ form_start(form, {
+            action: path('order_submit'),
+            attr: {
+                class: 'order-list__form',
+                'data-controller': 'order',
+                'data-action': 'submit->order#submit',
+                'data-order-target': 'form'
+            }
+        }) }}
+
+        {{ form_row(form.fullname) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.phone) }}
+        {{ form_row(form.tea_type) }}
+        {{ form_row(form.quantity) }}
+
+        {{ form_widget(form.submit) }}
+
+        {{ form_end(form) }}
+    </div>
+</section>
