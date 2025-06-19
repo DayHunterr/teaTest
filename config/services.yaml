@@ -4,67 +4,69 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    locale: '%env(string:LOCALE)%'
-    mediastack.access_key: '%env(MEDIASTACK_ACCESS_KEY)%'
-    gnews.api_key: '%env(GNEWS_API_KEY)%'
-    newsapi.key: '%env(NEWSAPI_KEY)%'
+  locale: '%env(string:LOCALE)%'
 
 services:
-    App\Resolver\NewsCommandResolver: ~
-    App\Command\ImportAllNewsCommand:
-        tags: [ 'console.command' ]
 
-    App\Command\MediaStack\MediaStackClient:
-        tags: [ 'console.command' ]
+  App\:
+    resource: '../src/'
+    exclude:
+      - '../src/DependencyInjection/'
+      - '../src/Entity/'
+      - '../src/Kernel.php'
 
-    App\Command\GNews\GNewsClient:
-        tags: [ 'console.command' ]
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    App\Command\NewsApi\NewsApiClient:
-        tags: [ 'console.command' ]
+  App\Service\CredentialProvider: ~
 
-    App\Controller\Admin\ArticleAdminController:
-        autowire: true
-        autoconfigure: false
-        public: true
-        tags: [ 'controller.service_arguments' ]
+  App\ApiClient\GNewsApiClient:
+    arguments:
+      $credentials: '@App\Service\CredentialProvider'
 
-        # default configuration for services in *this* file
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        bind:
-            $accessKeyMediaStack: '%mediastack.access_key%'
-            $accessKeyGNews: '%gnews.api_key%'
-            $accessNewsApi: '%newsapi.key%'
+  App\ApiClient\MediaStackApiClient:
+    arguments:
+      $credentials: '@App\Service\CredentialProvider'
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
+  App\ApiClient\NewsApiApiClient:
+    arguments:
+      $credentials: '@App\Service\CredentialProvider'
 
-    admin.article:
-        class: App\Admin\ArticleAdmin
-        tags:
-            - { name: sonata.admin, model_class: App\Entity\Article,controller: App\Controller\Admin\ArticleAdminController, manager_type: orm, label: Article, group: Posts, icon: '<i class="fa fa-address-card-o"></i>'}
+  App\Resolver\NewsClientResolver:
+    arguments:
+      - [ '@App\ApiClient\GNewsApiClient', '@App\ApiClient\MediaStackApiClient', '@App\ApiClient\NewsApiApiClient' ]
 
-    App\EventListener\AdminMenuListener:
-        tags:
-            - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar }
-    sonata.user.admin.user:
-        class: App\Admin\UserAdmin
-        arguments: [ ~, App\Entity\SonataUserUser, ~ ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Users, group: Users, icon: '<i class="fa fa-user"></i>' }
+  App\Controller\Admin\ArticleAdminController:
+    autowire: true
+    autoconfigure: false
+    public: true
+    tags: [ 'controller.service_arguments' ]
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
-    App\Command\JsonTranslationsDumpCommand:
-        arguments:
-            - '%kernel.project_dir%/translations'
-            - '%kernel.project_dir%/public/translations/translations.json'
-            - '%locale%'
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+
+  admin.article:
+    class: App\Admin\ArticleAdmin
+    tags:
+      - { name: sonata.admin, model_class: App\Entity\Article,controller: App\Controller\Admin\ArticleAdminController, manager_type: orm, label: Article, group: Posts, icon: '<i class="fa fa-address-card-o"></i>' }
+
+  App\EventListener\AdminMenuListener:
+    tags:
+      - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar }
+  sonata.user.admin.user:
+    class: App\Admin\UserAdmin
+    arguments: [ ~, App\Entity\SonataUserUser, ~ ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: Users, group: Users, icon: '<i class="fa fa-user"></i>' }
+
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones
+  App\Command\JsonTranslationsDumpCommand:
+    arguments:
+      - '%kernel.project_dir%/translations'
+      - '%kernel.project_dir%/public/translations/translations.json'
+      - '%locale%'
+
+
