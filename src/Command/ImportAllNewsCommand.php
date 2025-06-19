@@ -2,57 +2,48 @@
 
 namespace App\Command;
 
-use App\Resolver\NewsCommandResolver;
+use App\Resolver\NewsClientResolver;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\NewsApi;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Application;
 
 class ImportAllNewsCommand extends Command
 {
     protected static $defaultName = 'app:import-enabled-news-sources';
-    protected static $defaultDescription = 'Run all enabled news importers from the database';
+    protected static $defaultDescription = 'Run all enabled news API clients based on database config';
 
-    /** @var NewsCommandResolver */
+    private $em;
     private $resolver;
 
-    /** @var Application|null */
-    private $application;
-
-    public function __construct(NewsCommandResolver $resolver)
+    public function __construct(EntityManagerInterface $em, NewsClientResolver $resolver)
     {
         parent::__construct();
+        $this->em = $em;
         $this->resolver = $resolver;
-    }
-
-    public function setApplication(Application $application = null)
-    {
-        parent::setApplication($application);
-        $this->application = $application;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if (!$this->application) {
-            $this->application = $this->getApplication();
-        }
+        $repo = $this->em->getRepository(NewsApi::class);
+        $apis = $repo->findBy(['enabled' => true]);
 
-        $commandNames = $this->resolver->getEnabledCommandNames();
-
-        if (empty($commandNames)) {
-            $output->writeln('<comment>No enabled news commands found.</comment>');
+        if (empty($apis)) {
+            $output->writeln('<comment>No enabled API clients found.</comment>');
             return Command::SUCCESS;
         }
 
-        foreach ($commandNames as $commandName) {
-            $output->writeln("<info>Running: {$commandName}</info>");
+        foreach ($apis as $api) {
+            $client = $this->resolver->resolve($api->getName());
 
-            $command = $this->application->find($commandName);
-            $returnCode = $command->run($input, $output);
-
-            if ($returnCode !== Command::SUCCESS) {
-                $output->writeln("<error>Command {$commandName} failed with code {$returnCode}</error>");
+            if (!$client) {
+                $output->writeln("<error>No client found for: {$api->getName()}</error>");
+                continue;
             }
+
+            $count = $client->import();
+            $output->writeln("<info>Imported {$count} articles using '{$api->getName()}' client.</info>");
         }
 
         return Command::SUCCESS;
