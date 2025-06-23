@@ -5,6 +5,7 @@
         {{ form_start(form, {
             action: path('order_submit'),
             attr: {
+                novalidate: 'novalidate',
                 class: 'order-list__form',
                 'data-controller': 'order',
                 'data-action': 'submit->order#submit',

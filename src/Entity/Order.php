@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OrderRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
@@ -20,16 +21,26 @@ class Order
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Regex(
+     *      pattern="/^[^\d]+$/u",
+     *      message="Full name cannot contain numbers."
+     *  )
      */
     private $fullname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Email(mode="html5")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(
+     *      pattern="/^\+\d{7,15}$/",
+     *      message="Phone must start with '+' and contain only digits."
+     *  )
      */
     private $phone;
 
@@ -40,6 +51,11 @@ class Order
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Regex(
+     *      pattern="/^\d+$/",
+     *      message="Quantity must be a number."
+     *  )
      */
     private $quantity;
 

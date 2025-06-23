@@ -35,14 +35,6 @@ class OrderController extends AbstractController
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
 
-        // Email/phone rule: at least one must be present
-        if (empty($order->getEmail()) && empty($order->getPhone())) {
-            return new JsonResponse([
-                'success' => false,
-                'message' => 'Please provide at least email or phone.',
-            ], 400);
-        }
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($order);
             $em->flush();

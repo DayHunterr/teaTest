@@ -3,6 +3,20 @@ sonata_admin:
     dashboard:
         blocks:
             - { type: sonata.admin.block.admin_list, position: left }
+        groups:
+            Posts:
+                label: 'Posts'
+                icon: '<i class="fa fa-newspaper"></i>'
+                items:
+                    - admin: admin.article
+                    - route: admin_article_stats
+                      label: 'Graph'
+            Users:
+                label: 'Users'
+                icon: '<i class="fa fa-user"></i>'
+                items:
+                    - route: admin_app_sonatauseruser_list
+                      label: 'Users'
     security:
         handler: sonata.admin.security.handler.role
         role_admin: ROLE_ADMIN

@@ -20,16 +20,12 @@ final class OrderType extends AbstractType
     {
         $builder
             ->add('fullname', TextType::class, [
-                'constraints' => [new Assert\NotBlank()],
                 'attr' => [
                     'class' => 'order-list__field',
                 ],
             ])
             ->add('email', EmailType::class, [
                 'required' => false,
-                'constraints' => [
-                    new Assert\Email(['mode' => 'html5']),
-                ],
                 'attr' => [
                     'class' => 'order-list__field',
                 ],
@@ -48,13 +44,11 @@ final class OrderType extends AbstractType
                     'Oolong Tea' => 'oolong tea',
                     'Pu-erh Tea' => 'pu-erh tea',
                 ],
-                'constraints' => [new Assert\NotBlank()],
                 'attr' => [
                     'class' => 'order-list__field',
                 ],
             ])
             ->add('quantity', TextType::class, [
-                'constraints' => [new Assert\NotBlank()],
                 'attr' => [
                     'class' => 'order-list__field',
                 ],

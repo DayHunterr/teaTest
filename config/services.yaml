@@ -56,10 +56,6 @@ services:
     tags:
       - { name: sonata.admin, model_class: App\Entity\Article,controller: App\Controller\Admin\ArticleAdminController, manager_type: orm, label: Article, group: Posts, icon: '<i class="fa fa-address-card-o"></i>' }
 
-  App\EventListener\AdminMenuListener:
-    tags:
-      - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar }
-
   sonata.user.admin.user:
     class: App\Admin\UserAdmin
     arguments: [ ~, App\Entity\SonataUserUser, ~ ]
