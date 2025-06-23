@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Resolver;
+namespace App\ApiNewsClient\Resolver;
 
-use App\ApiClient\NewsClientInterface;
+use App\ApiNewsClient\NewsClientInterface;
 
 class NewsClientResolver
 {
     /** @var NewsClientInterface[] */
-    private array $clients;
+    private iterable $clients;
 
     /**
-     * @param NewsClientInterface[] $clients
+     * @param iterable<NewsClientInterface[]> $clients
      */
-    public function __construct(array $clients)
+    public function __construct(iterable $clients)
     {
         $this->clients = $clients;
     }

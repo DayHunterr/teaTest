@@ -1,17 +1,11 @@
 <?php
 
-// src/Controller/Admin/ArticleAdminController.php
-
 namespace App\Controller\Admin;
 
-use App\Entity\Article;
-use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 final class ArticleAdminController extends CRUDController
 {

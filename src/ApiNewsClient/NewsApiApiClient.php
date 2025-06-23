@@ -1,16 +1,15 @@
 <?php
 
-namespace App\ApiClient;
+namespace App\ApiNewsClient;
 
 use App\Entity\Article;
-use App\Resolver\NewsClientResolver;
 use App\Service\CredentialProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class GNewsApiClient implements NewsClientInterface
+class NewsApiApiClient implements NewsClientInterface
 {
-    private const BASE_URL = 'https://gnews.io/api/v4/top-headlines';
+    private const BASE_URL = 'https://newsapi.org/v2/top-headlines';
 
     private $client;
     private $em;
@@ -25,7 +24,7 @@ class GNewsApiClient implements NewsClientInterface
 
     public function getName(): string
     {
-        return 'gnews';
+        return 'newsapi';
     }
 
     public function import(): int
@@ -37,10 +36,10 @@ class GNewsApiClient implements NewsClientInterface
 
         $response = $this->client->request('GET', self::BASE_URL, [
             'query' => [
-                'token' => $apiKey,
-                'lang' => 'en',
-                'topic' => 'health',
-                'max' => 2,
+                'apiKey' => $apiKey,
+                'language' => 'en',
+                'category' => 'health',
+                'pageSize' => 2,
             ],
         ]);
 
@@ -53,9 +52,9 @@ class GNewsApiClient implements NewsClientInterface
         foreach ($data['articles'] as $item) {
             $article = new Article();
             $article->setTitle($item['title'] ?? 'No Title');
-            $article->setAuthor($item['source']['name'] ?? 'Unknown');
+            $article->setAuthor($item['author'] ?? 'Unknown');
             $article->setText($item['description'] ?? '');
-            $article->setSmallImage($item['image'] ?? '');
+            $article->setSmallImage($item['urlToImage'] ?? '');
             $article->setLargeImage('');
             $this->em->persist($article);
         }
@@ -65,4 +64,3 @@ class GNewsApiClient implements NewsClientInterface
         return count($data['articles']);
     }
 }
-

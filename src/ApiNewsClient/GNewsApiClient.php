@@ -1,15 +1,15 @@
 <?php
 
-namespace App\ApiClient;
+namespace App\ApiNewsClient;
 
 use App\Entity\Article;
 use App\Service\CredentialProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class MediaStackApiClient implements NewsClientInterface
+class GNewsApiClient implements NewsClientInterface
 {
-    private const BASE_URL = 'http://api.mediastack.com/v1/news';
+    private const BASE_URL = 'https://gnews.io/api/v4/top-headlines';
 
     private $client;
     private $em;
@@ -24,7 +24,7 @@ class MediaStackApiClient implements NewsClientInterface
 
     public function getName(): string
     {
-        return 'mediastack';
+        return 'gnews';
     }
 
     public function import(): int
@@ -36,23 +36,23 @@ class MediaStackApiClient implements NewsClientInterface
 
         $response = $this->client->request('GET', self::BASE_URL, [
             'query' => [
-                'access_key' => $apiKey,
-                'languages' => 'en',
-                'limit' => 2,
-                'categories' => 'health',
+                'token' => $apiKey,
+                'lang' => 'en',
+                'topic' => 'health',
+                'max' => 2,
             ],
         ]);
 
         $data = $response->toArray(false);
 
-        if (empty($data['data'] ?? [])) {
+        if (empty($data['articles'] ?? [])) {
             return 0;
         }
 
-        foreach ($data['data'] as $item) {
+        foreach ($data['articles'] as $item) {
             $article = new Article();
             $article->setTitle($item['title'] ?? 'No Title');
-            $article->setAuthor($item['author'] ?? 'Unknown');
+            $article->setAuthor($item['source']['name'] ?? 'Unknown');
             $article->setText($item['description'] ?? '');
             $article->setSmallImage($item['image'] ?? '');
             $article->setLargeImage('');
@@ -61,6 +61,7 @@ class MediaStackApiClient implements NewsClientInterface
 
         $this->em->flush();
 
-        return count($data['data']);
+        return count($data['articles']);
     }
 }
+

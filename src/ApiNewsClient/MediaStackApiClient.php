@@ -1,15 +1,15 @@
 <?php
 
-namespace App\ApiClient;
+namespace App\ApiNewsClient;
 
 use App\Entity\Article;
 use App\Service\CredentialProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class NewsApiApiClient implements NewsClientInterface
+class MediaStackApiClient implements NewsClientInterface
 {
-    private const BASE_URL = 'https://newsapi.org/v2/top-headlines';
+    private const BASE_URL = 'http://api.mediastack.com/v1/news';
 
     private $client;
     private $em;
@@ -24,7 +24,7 @@ class NewsApiApiClient implements NewsClientInterface
 
     public function getName(): string
     {
-        return 'newsapi';
+        return 'mediastack';
     }
 
     public function import(): int
@@ -36,31 +36,31 @@ class NewsApiApiClient implements NewsClientInterface
 
         $response = $this->client->request('GET', self::BASE_URL, [
             'query' => [
-                'apiKey' => $apiKey,
-                'language' => 'en',
-                'category' => 'health',
-                'pageSize' => 2,
+                'access_key' => $apiKey,
+                'languages' => 'en',
+                'limit' => 2,
+                'categories' => 'health',
             ],
         ]);
 
         $data = $response->toArray(false);
 
-        if (empty($data['articles'] ?? [])) {
+        if (empty($data['data'] ?? [])) {
             return 0;
         }
 
-        foreach ($data['articles'] as $item) {
+        foreach ($data['data'] as $item) {
             $article = new Article();
             $article->setTitle($item['title'] ?? 'No Title');
             $article->setAuthor($item['author'] ?? 'Unknown');
             $article->setText($item['description'] ?? '');
-            $article->setSmallImage($item['urlToImage'] ?? '');
+            $article->setSmallImage($item['image'] ?? '');
             $article->setLargeImage('');
             $this->em->persist($article);
         }
 
         $this->em->flush();
 
-        return count($data['articles']);
+        return count($data['data']);
     }
 }

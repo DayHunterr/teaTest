@@ -8,6 +8,12 @@ parameters:
 
 services:
 
+  App\Controller\Admin\ArticleAdminController:
+    autowire: true
+    autoconfigure: false
+    public: true
+    tags: [ 'controller.service_arguments' ]
+
   App\:
     resource: '../src/'
     exclude:
@@ -22,27 +28,25 @@ services:
 
   App\Service\CredentialProvider: ~
 
-  App\ApiClient\GNewsApiClient:
+  App\ApiNewsClient\GNewsApiClient:
     arguments:
       $credentials: '@App\Service\CredentialProvider'
+    tags: ['app.news_client']
 
-  App\ApiClient\MediaStackApiClient:
+  App\ApiNewsClient\MediaStackApiClient:
     arguments:
       $credentials: '@App\Service\CredentialProvider'
+    tags: ['app.news_client']
 
-  App\ApiClient\NewsApiApiClient:
+  App\ApiNewsClient\NewsApiApiClient:
     arguments:
       $credentials: '@App\Service\CredentialProvider'
+    tags: ['app.news_client']
 
-  App\Resolver\NewsClientResolver:
-    arguments:
-      - [ '@App\ApiClient\GNewsApiClient', '@App\ApiClient\MediaStackApiClient', '@App\ApiClient\NewsApiApiClient' ]
+  App\ApiNewsClient\Resolver\NewsClientResolver:
+    $clients: !tagged_iterator app.news_client
 
-  App\Controller\Admin\ArticleAdminController:
-    autowire: true
-    autoconfigure: false
-    public: true
-    tags: [ 'controller.service_arguments' ]
+
 
   # makes classes in src/ available to be used as services
   # this creates a service per class whose id is the fully-qualified class name
@@ -55,6 +59,7 @@ services:
   App\EventListener\AdminMenuListener:
     tags:
       - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar }
+
   sonata.user.admin.user:
     class: App\Admin\UserAdmin
     arguments: [ ~, App\Entity\SonataUserUser, ~ ]
