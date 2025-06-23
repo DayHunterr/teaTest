@@ -1,4 +1,3 @@
-// assets/controllers/order_controller.js
 import { Controller } from '@hotwired/stimulus';
 import Swal from 'sweetalert2';
 
