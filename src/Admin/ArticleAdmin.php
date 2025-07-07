@@ -3,6 +3,7 @@
 namespace App\Admin;
 
 use App\Controller\Admin\ArticleAdminController;
+use App\Controller\Admin\DataTransformer\TagTransformer;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -17,6 +18,16 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 final class ArticleAdmin extends AbstractAdmin
 {
     protected $baseControllerName = ArticleAdminController::class;
+    private TagTransformer $tagTransformer;
+
+    public function __construct(TagTransformer $tagTransformer,
+                                ?string        $code = null,
+                                ?string        $class = null,
+                                ?string        $baseControllerName = null)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->tagTransformer = $tagTransformer;
+    }
 
     protected function configureFormFields(FormMapper $form): void
     {
@@ -27,6 +38,7 @@ final class ArticleAdmin extends AbstractAdmin
             'label' => 'Content',
             'config_name' => 'default'
         ]);
+        $form->add('tags', TextType::class);
         $form->add('smallImageFile', FileType::class, [
             'label' => 'Small image (preview)',
             'required' => false,
@@ -38,6 +50,8 @@ final class ArticleAdmin extends AbstractAdmin
             'required' => false,
             'mapped' => false,
         ]);
+
+        $form->get('tags')->addModelTransformer($this->tagTransformer);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagrid): void
@@ -45,6 +59,7 @@ final class ArticleAdmin extends AbstractAdmin
         $datagrid->add('id');
         $datagrid->add('title');
         $datagrid->add('author');
+        $datagrid->add('tags');
     }
 
     protected function configureListFields(ListMapper $list): void
@@ -72,6 +87,7 @@ final class ArticleAdmin extends AbstractAdmin
         $show->add('title');
         $show->add('author');
         $show->add('text');
+        $show->add('tags');
     }
 
     public function prePersist($article): void

@@ -4,7 +4,12 @@ namespace App\Entity;
 
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -12,6 +17,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Article
 {
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
     use TimestampableTrait;
 
@@ -46,6 +56,20 @@ class Article
      * @ORM\Column(type="string", length=255)
      */
     private $largeImage;
+
+    /**
+     * @ManyToMany(targetEntity="App\Entity\Tag",cascade={"persist"})
+     * @JoinTable(
+     *     name="tags_to_articles",
+     *     joinColumns={
+     *         @JoinColumn(name="article_id", referencedColumnName="id")
+     *     },
+     *     inverseJoinColumns={
+     *         @JoinColumn(name="tag_id", referencedColumnName="id", unique=true)
+     *     }
+     * )
+     */
+    private Collection $tags;
 
     /**
      * @return mixed
@@ -118,5 +142,22 @@ class Article
         $this->text = $text;
 
         return $this;
+    }
+
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function setTags(Collection $tags): self
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    public function addTag(Tag $tag): void
+    {
+        $this->tags[] = $tag;
     }
 }
